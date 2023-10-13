@@ -1,3 +1,4 @@
+// progressbar simple progress bar at terminal
 package progressbar
 
 import (
@@ -31,7 +32,7 @@ func (bar *ProgressBar) Start() chan<- int64 {
 	return bar.ch
 }
 
-// Close close
+// Close progress bar
 func (bar *ProgressBar) Close() {
 	bar.done <- struct{}{}
 }
@@ -56,9 +57,9 @@ func (bar *ProgressBar) execute() {
 func (bar *ProgressBar) flush(progress int64) {
 
 	percent := float64(progress) / float64(bar.max)
-	//if progress > bar.max {
-	//	percent = 1
-	//}
+	if progress > bar.max {
+		percent = 1
+	}
 
 	progressBarWidth := 50
 	hashesNum := int(percent * float64(progressBarWidth))
